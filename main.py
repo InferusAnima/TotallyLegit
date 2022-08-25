@@ -7,6 +7,7 @@ import pathlib
 import matplotlib.pyplot as plt
 import config
 from datetime import datetime
+import prediction
 data_dir = pathlib.Path('./dataset')
 logdir = "logs/fit/" + datetime.now().strftime("%Y%m%d-%H%M%S")
 
