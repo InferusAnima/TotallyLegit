@@ -6,7 +6,11 @@ import tensorflow as tf
 import pathlib
 import matplotlib.pyplot as plt
 import config
+from datetime import datetime
 data_dir = pathlib.Path('./dataset')
+logdir = "logs/fit/" + datetime.now().strftime("%Y%m%d-%H%M%S")
+
+tensorboard_callback = tf.keras.callbacks.TensorBoard(log_dir=logdir)
 
 image_count = len(list(data_dir.glob('*.jpg')))
 
@@ -39,7 +43,7 @@ train_ds = train_ds.cache().prefetch(buffer_size=AUTOTUNE)
 val_ds = val_ds.cache().prefetch(buffer_size=AUTOTUNE)
 
 
-num_classes = 3
+num_classes = 4
 
 model = tf.keras.Sequential([
   tf.keras.layers.Rescaling(1./255),
@@ -62,10 +66,11 @@ model.compile(
 history = model.fit(
   train_ds,
   validation_data=val_ds,
-  epochs=15
+  epochs=15,
+  callbacks=[tensorboard_callback]
 )
 
-model.save('saved_model/my_model')
+model.save('saved_model/my_local_model')
 
 plt.plot(history.history['accuracy'], label='accuracy')
 plt.plot(history.history['val_accuracy'], label = 'val_accuracy')
