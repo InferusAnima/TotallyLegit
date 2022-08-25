@@ -8,8 +8,6 @@ import matplotlib.pyplot as plt
 
 data_dir = pathlib.Path('./dataset')
 
-print("Num GPUs Available: ", len(tf.config.list_physical_devices('GPU')))
-
 image_count = len(list(data_dir.glob('*.jpg')))
 
 batch_size = 32
