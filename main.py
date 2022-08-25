@@ -40,7 +40,7 @@ train_ds = train_ds.cache().prefetch(buffer_size=AUTOTUNE)
 val_ds = val_ds.cache().prefetch(buffer_size=AUTOTUNE)
 
 
-num_classes = 4
+num_classes = 3
 
 model = tf.keras.Sequential([
   tf.keras.layers.RandomRotation(0.1),

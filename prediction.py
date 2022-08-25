@@ -17,6 +17,5 @@ def predict(image_path):
 
   return predictions
 
-
 # print(predict("dataset/facture/inv-0003.jpg"))
 # print(predict("dataset/other/inv-0000.jpg"))
