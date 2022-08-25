@@ -66,7 +66,7 @@ model.compile(
 history = model.fit(
   train_ds,
   validation_data=val_ds,
-  epochs=15,
+  epochs=config.epochs,
   callbacks=[tensorboard_callback]
 )
 
