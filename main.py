@@ -67,7 +67,6 @@ history = model.fit(
 
 model.save('saved_model/my_model')
 
-print(history.history["accuracy"])
 plt.plot(history.history['accuracy'], label='accuracy')
 plt.plot(history.history['val_accuracy'], label = 'val_accuracy')
 plt.xlabel('Epoch')
