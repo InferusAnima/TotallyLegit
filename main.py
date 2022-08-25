@@ -47,11 +47,11 @@ num_classes = 4
 
 model = tf.keras.Sequential([
   tf.keras.layers.Rescaling(1./255),
-  tf.keras.layers.Conv2D(32, 3, activation='relu'),
+  tf.keras.layers.Conv2D(32, 1, activation='relu'),
   tf.keras.layers.MaxPooling2D(),
-  tf.keras.layers.Conv2D(32, 3, activation='relu'),
+  tf.keras.layers.Conv2D(32, 1, activation='relu'),
   tf.keras.layers.MaxPooling2D(),
-  tf.keras.layers.Conv2D(32, 3, activation='relu'),
+  tf.keras.layers.Conv2D(32, 1, activation='relu'),
   tf.keras.layers.MaxPooling2D(),
   tf.keras.layers.Flatten(),
   tf.keras.layers.Dense(128, activation='relu'),
@@ -63,17 +63,20 @@ model.compile(
   loss=tf.losses.SparseCategoricalCrossentropy(from_logits=True),
   metrics=['accuracy'])
 
+earlystop = tf.keras.callbacks.EarlyStopping(verbose=1)
+
 history = model.fit(
   train_ds,
   validation_data=val_ds,
   epochs=config.epochs,
-  callbacks=[tensorboard_callback]
+  callbacks=[tensorboard_callback,earlystop]
 )
 
-model.save('saved_model/my_local_model')
+model.save('saved_model/my_model')
 
 plt.plot(history.history['accuracy'], label='accuracy')
 plt.plot(history.history['val_accuracy'], label = 'val_accuracy')
+a = plt.xscale('log')
 plt.xlabel('Epoch')
 plt.ylabel('Accuracy')
 plt.ylim([0, 1])
