@@ -7,7 +7,6 @@ import pathlib
 import matplotlib.pyplot as plt
 import config
 from datetime import datetime
-import prediction
 data_dir = pathlib.Path('./dataset')
 logdir = "logs/fit/" + datetime.now().strftime("%Y%m%d-%H%M%S")
 
@@ -45,7 +44,7 @@ num_classes = 4
 
 model = tf.keras.Sequential([
   tf.keras.layers.Rescaling(1./255),
-  tf.keras.layers.Conv2D(32, 5, activation='relu'),
+  tf.keras.layers.Conv2D(32, 5, activation='relu',input_shape=(config.img_height,config.img_width)),
   tf.keras.layers.MaxPooling2D(),
   tf.keras.layers.Conv2D(32, 5, activation='relu'),
   tf.keras.layers.MaxPooling2D(),
