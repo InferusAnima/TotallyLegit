@@ -31,10 +31,7 @@ val_ds = tf.keras.utils.image_dataset_from_directory(
   image_size=(config.img_height, config.img_width),
   batch_size=config.batch_size,color_mode="grayscale")
 
-normalization_layer = tf.keras.layers.Rescaling(1./255)
-
-normalized_ds = train_ds.map(lambda x, y: (normalization_layer(x), y))
-image_batch, labels_batch = next(iter(normalized_ds))
+image_batch, labels_batch = next(iter(train_ds))
 first_image = image_batch[0]
 # Notice the pixel values are now in `[0,1]`.
 
@@ -47,9 +44,10 @@ val_ds = val_ds.cache().prefetch(buffer_size=AUTOTUNE)
 num_classes = 4
 
 model = tf.keras.Sequential([
+  tf.keras.layers.Rescaling(1./255),
   tf.keras.layers.Conv2D(32, 5, activation='relu'),
   tf.keras.layers.MaxPooling2D(),
-  tf.keras.layers.Conv2D(32, 4, activation='relu'),
+  tf.keras.layers.Conv2D(32, 5, activation='relu'),
   tf.keras.layers.MaxPooling2D(),
   tf.keras.layers.Flatten(),
   tf.keras.layers.Dense(128, activation='relu'),
