@@ -16,6 +16,7 @@ def upload_file():
          f = request.files['file']
          f.save("temp/file")
       except:
+         print(request.get_json())
          fi = request.get_json()["file"].split(",")[-1]
          fi = base64.b64decode(fi)
          f = open("temp/file","wb")
@@ -35,4 +36,4 @@ def upload_file():
          return dict(type="we dont know", max=str(m), output=str(list(data)))
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0')
+    app.run(host='0.0.0.0',port=2898)
