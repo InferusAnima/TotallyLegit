@@ -21,8 +21,8 @@ train_ds = tf.keras.utils.image_dataset_from_directory(
 val_ds = tf.keras.utils.image_dataset_from_directory(
   data_dir,
   validation_split=0.2,
-  subset="validation",
   seed=123,
+  subset="validation",
   image_size=(config.img_height, config.img_width),
   batch_size=config.batch_size,color_mode="grayscale")
 
@@ -65,13 +65,14 @@ history = model.fit(
   epochs=15
 )
 
-model.save('./')
+model.save('models')
 
+print(history.history["accuracy"])
 plt.plot(history.history['accuracy'], label='accuracy')
 plt.plot(history.history['val_accuracy'], label = 'val_accuracy')
 plt.xlabel('Epoch')
 plt.ylabel('Accuracy')
-plt.ylim([0.5, 1])
+plt.ylim([0, 1])
 plt.legend(loc='lower right')
 
 plt.show()

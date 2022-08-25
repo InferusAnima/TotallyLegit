@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import config
 
-model = tf.keras.models.load_model('saved_model/my_model')
+model = tf.keras.models.load_model('models')
 
 batch_size = 32
 img_height = 500
