@@ -41,12 +41,14 @@ val_ds = val_ds.cache().prefetch(buffer_size=AUTOTUNE)
 
 
 num_classes = 4
-
+tf.keras
 model = tf.keras.Sequential([
-  tf.keras.layers.Rescaling(1./255),
-  tf.keras.layers.Conv2D(32, 5, activation='relu',input_shape=(config.img_height,config.img_width)),
+  tf.keras.layers.Rescaling(1./255, input_shape=(config.img_height, config.img_width)),
+  tf.keras.layers.Conv2D(16, 5, padding='same', activation='relu'),
   tf.keras.layers.MaxPooling2D(),
-  tf.keras.layers.Conv2D(32, 5, activation='relu'),
+  tf.keras.layers.Conv2D(32, 3, padding='same', activation='relu'),
+  tf.keras.layers.MaxPooling2D(),
+  tf.keras.layers.Conv2D(64, 3, padding='same', activation='relu'),
   tf.keras.layers.MaxPooling2D(),
   tf.keras.layers.Flatten(),
   tf.keras.layers.Dense(128, activation='relu'),
