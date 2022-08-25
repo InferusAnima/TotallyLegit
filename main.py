@@ -5,31 +5,26 @@ import PIL.Image
 import tensorflow as tf
 import pathlib
 import matplotlib.pyplot as plt
-
+import config
 data_dir = pathlib.Path('./dataset')
 
 image_count = len(list(data_dir.glob('*.jpg')))
-
-batch_size = 32
-img_height = 500
-img_width = 500
-
 
 train_ds = tf.keras.utils.image_dataset_from_directory(
   data_dir,
   validation_split=0.2,
   subset="training",
   seed=123,
-  image_size=(img_height, img_width),
-  batch_size=batch_size)
+  image_size=(config.img_height, config.img_width),
+  batch_size=config.batch_size)
 
 val_ds = tf.keras.utils.image_dataset_from_directory(
   data_dir,
   validation_split=0.2,
   subset="validation",
   seed=123,
-  image_size=(img_height, img_width),
-  batch_size=batch_size)
+  image_size=(config.img_height, config.img_width),
+  batch_size=config.batch_size)
 
 normalization_layer = tf.keras.layers.Rescaling(1./255)
 
