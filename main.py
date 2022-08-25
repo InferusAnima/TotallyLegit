@@ -16,7 +16,7 @@ train_ds = tf.keras.utils.image_dataset_from_directory(
   subset="training",
   seed=123,
   image_size=(config.img_height, config.img_width),
-  batch_size=config.batch_size)
+  batch_size=config.batch_size,color_mode="grayscale")
 
 val_ds = tf.keras.utils.image_dataset_from_directory(
   data_dir,
@@ -24,7 +24,7 @@ val_ds = tf.keras.utils.image_dataset_from_directory(
   subset="validation",
   seed=123,
   image_size=(config.img_height, config.img_width),
-  batch_size=config.batch_size)
+  batch_size=config.batch_size,color_mode="grayscale")
 
 normalization_layer = tf.keras.layers.Rescaling(1./255)
 
