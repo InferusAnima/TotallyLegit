@@ -65,7 +65,7 @@ history = model.fit(
   epochs=15
 )
 
-model.save('models')
+model.save('saved_model/my_model')
 
 print(history.history["accuracy"])
 plt.plot(history.history['accuracy'], label='accuracy')
