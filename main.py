@@ -63,13 +63,12 @@ model.compile(
   loss=tf.losses.SparseCategoricalCrossentropy(from_logits=True),
   metrics=['accuracy'])
 
-earlystop = tf.keras.callbacks.EarlyStopping(verbose=1)
 
 history = model.fit(
   train_ds,
   validation_data=val_ds,
   epochs=config.epochs,
-  callbacks=[tensorboard_callback,earlystop]
+  callbacks=[tensorboard_callback]
 )
 
 model.save('saved_model/my_model')
