@@ -62,7 +62,7 @@ model.compile(
 history = model.fit(
   train_ds,
   validation_data=val_ds,
-  epochs=20
+  epochs=15
 )
 
 model.save('./')
