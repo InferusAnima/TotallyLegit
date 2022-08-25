@@ -24,7 +24,7 @@ train_ds = tf.keras.utils.image_dataset_from_directory(
 
 val_ds = tf.keras.utils.image_dataset_from_directory(
   data_dir,
-  validation_split=0.2,
+  validation_split=0.1,
   seed=123,
   subset="validation",
   image_size=(config.img_height, config.img_width),
