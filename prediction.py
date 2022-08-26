@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import config
 
-model = tf.keras.models.load_model('saved_model/my_model')
+model = tf.keras.models.load_model('saved_model/gen1_1')
 
 
 def predict(image_path):
@@ -19,3 +19,6 @@ def predict(image_path):
 
 # print(predict("dataset/facture/inv-0003.jpg"))
 # print(predict("dataset/other/inv-0000.jpg"))
+# print(predict("dataset/other/inv-0001.jpg"))
+# print(predict("dataset/other/inv-0002.jpg"))
+# print(predict("dataset/other/inv-0003.jpg"))

@@ -27,13 +27,10 @@ def upload_file():
       if data[0] == m:
          return dict(type="bill",max=str(m),output=str(list(data)))
       elif data[1] == m:
-         return dict(type="bill_to_pay",max=str(m),output=str(list(data)))
-      elif data[2] == m:
          return dict(type="facture",max=str(m),output=str(list(data)))
-      elif data[3] == m:
+      elif data[2] == m:
          return dict(type="other",max=str(m),output=str(list(data)))
-      else:
-         return dict(type="we dont know", max=str(m), output=str(list(data)))
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0',port=2898)
