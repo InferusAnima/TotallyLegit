@@ -1,7 +1,8 @@
 from flask import Flask, render_template, request
-from prediction import predict
+# from prediction import predict
 import base64
 from flask_cors import CORS
+import workWithImage
 app = Flask(__name__)
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1000 * 1000
 CORS(app)
@@ -22,14 +23,16 @@ def upload_file():
          f = open("temp/file","wb")
          f.write(fi)
          f.close()
-      data = predict("temp/file")[0]
-      m = max(data)
-      if data[0] == m:
-         return dict(type="bill",max=str(m),output=str(list(data)))
-      elif data[1] == m:
-         return dict(type="facture",max=str(m),output=str(list(data)))
-      elif data[2] == m:
-         return dict(type="other",max=str(m),output=str(list(data)))
+
+      # data = predict("temp/file")[0]
+      # m = max(data)
+      # if data[0] == m:
+      #    return dict(type="bill",max=str(m),output=str(list(data)))
+      # elif data[1] == m:
+      #    return dict(type="facture",max=str(m),output=str(list(data)))
+      # elif data[2] == m:
+      #    return dict(type="other",max=str(m),output=str(list(data)))
+      return workWithImage.get_type("temp/file")
 
 
 if __name__ == '__main__':
