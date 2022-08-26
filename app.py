@@ -17,7 +17,6 @@ def upload_file():
          f = request.files['file']
          f.save("temp/file")
       except:
-         print(request.get_json())
          fi = request.get_json()["file"].split(",")[-1]
          fi = base64.b64decode(fi)
          f = open("temp/file","wb")

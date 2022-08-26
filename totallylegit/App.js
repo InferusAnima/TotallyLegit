@@ -21,7 +21,7 @@ export default function App() {
     axios
       .post("http://127.0.0.1:2898/upload", { file: result.uri })
       .then((response) => {
-        const dat = `Type: ${response.data.type} - Value: ${response.data.max}\nValues: ${response.data.output}`;
+        const dat = `Type data: ${response.data}`;
         setData(dat);
       });
 
