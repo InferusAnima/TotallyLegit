@@ -1,7 +1,9 @@
 import pytesseract
 import os
 from PIL import Image
-import normalizationText
+import re
+import nltk
+from nltk.corpus import stopwords
 tessdata_dir_config = r'--tessdata-dir "C:/Program Files/Tesseract-OCR/tessdata"'
 
 
@@ -20,12 +22,37 @@ def check_words(text: str, words: list, islower=True):
             word_counter += 1
     return word_counter
 
+
+def normalize(string:str):
+
+    nltk.download('stopwords')
+    snowball = nltk.SnowballStemmer(language="russian")
+    stop_words = set(stopwords.words('russian'))
+
+    lower_string = string.lower()
+    no_number_string = re.sub(r'\d+', '', lower_string)
+    no_punc_string = re.sub(r'[^\w\s]', '', no_number_string)
+    no_wspace_string = no_punc_string.strip()
+    lst_string = [no_wspace_string][0].split()
+    no_stpwords_string = ""
+    for i in lst_string:
+        if i not in stop_words:
+            no_stpwords_string += i + ' '
+
+    no_stpwords_string = no_stpwords_string[:-1]
+
+    l = ""
+    for i in no_stpwords_string.split(" "):
+        l += snowball.stem(i) + " "
+
+    return l[:-1]
+
+
 def get_type(path: os.path):
     text = get_text(path)
-    text = normalizationText.normalize(text)
+    text = normalize(text)
     if "фактур" in text:
         return "facture"
     elif "счет" in text:
         return "bill"
-    else:
-        return "undefind"
+    return "undefind"
