@@ -5,7 +5,7 @@ import re
 import nltk
 from nltk.corpus import stopwords
 tessdata_dir_config = r'--tessdata-dir "C:/Program Files/Tesseract-OCR/tessdata"'
-
+nltk.download('stopwords')
 
 def get_text(path: os.path):
     image = Image.open(path)
@@ -25,7 +25,7 @@ def check_words(text: str, words: list, islower=True):
 
 def normalize(string:str):
 
-    nltk.download('stopwords')
+
     snowball = nltk.SnowballStemmer(language="russian")
     stop_words = set(stopwords.words('russian'))
 
@@ -51,8 +51,14 @@ def normalize(string:str):
 def get_type(path: os.path):
     text = get_text(path)
     text = normalize(text)
+
     if "фактур" in text:
-        return "facture"
-    elif "счет" in text:
-        return "bill"
-    return "undefind"
+        print(text,"facture")
+        return "счет-фактура"
+    elif "счет на оплат" in text:
+        print(text,"bill_to_pay")
+        return "счет"
+    elif "сче" in text and not ("акт" in text) and not ("отче" in text) and not ("орде" in text):
+        print(text,'bill')
+        return "счет"
+    return "другое"

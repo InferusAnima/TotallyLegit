@@ -4,6 +4,7 @@ import base64
 import sys
 from flask_cors import CORS
 import workWithImage
+import prediction
 app = Flask(__name__)
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1000 * 1000
 CORS(app)
@@ -13,6 +14,8 @@ def index():
 
 @app.route('/upload', methods = ['GET', 'POST'])
 def upload_file():
+   # print("Vanya lox")
+   # print(request)
    if request.method == 'POST':
       try:
          f = request.files['file']
@@ -24,9 +27,16 @@ def upload_file():
          f = open("temp/file","wb")
          f.write(fi)
          f.close()
-      response = workWithImage.get_type("temp/file")
+      response = prediction.predict("gen_1","temp/file")
+      m = max(response)
       print(response)
-      return response
+      if m == response[0]:
+         return "счет"
+      elif m == response[1]:
+         return "счет-фактура"
+      elif m == response[2]:
+         return "другое"
+      # return response
 
 
 if __name__ == '__main__':
